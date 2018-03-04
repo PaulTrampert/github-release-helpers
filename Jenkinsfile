@@ -8,14 +8,16 @@ pipeline {
     stages {
         stage('Generate Release Info Test') {
             steps {
-                def releaseInfo = generateGithubReleaseInfo(
-                        owner: 'PaulTrampert',
-                        repo: 'github-release-helpers',
-                        tagPrefix: 'v',
-                        credentialsId: 'github_token'
-                )
+                script {
+                    def releaseInfo = generateGithubReleaseInfo(
+                            owner: 'PaulTrampert',
+                            repo: 'github-release-helpers',
+                            tagPrefix: 'v',
+                            credentialsId: 'github_token'
+                    )
 
-                echo releaseInfo
+                    echo releaseInfo
+                }
             }
         }
     }
