@@ -7,8 +7,4 @@ class Change implements Serializable {
     Link change
     String description
     ChangeLevel changeLevel
-
-    Change(commitOrPr) {
-        author = new Link()
-    }
 }
