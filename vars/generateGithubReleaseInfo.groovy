@@ -14,5 +14,8 @@ def call(
         echo e.message
     }
     def changes = getChanges owner, repo, "${tagPrefix}${lastVersion.toString()}", credentialsId, githubApiRoot
-
+    def releaseInfo = new ReleaseInfo()
+    releaseInfo.previousVersion = lastVersion
+    releaseInfo.changes = changes
+    return releaseInfo
 }
