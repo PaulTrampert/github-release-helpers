@@ -1,6 +1,6 @@
 package com.ptrampert.github
 
-class GithubReleaseInfo implements Serializable {
+class ReleaseInfo implements Serializable {
     private static final long serialVersionUID = 1234L
 
     SemVer previousVersion

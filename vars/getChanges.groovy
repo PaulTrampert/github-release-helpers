@@ -7,7 +7,7 @@ def call(
         credentialsId = null,
         githubApiRoot = "https://api.github.com"
 ) {
-    def changes = []
+    def changes = new ArrayList<Change>()
     def apiRoot = githubApiRoot
     def responseBody = makeRequest(
             "${apiRoot}/repos/${owner}/${repo}/compare/${lastVersion.toString()}...${env.BRANCH_NAME ?: 'master'}".toString(),
@@ -28,24 +28,24 @@ def call(
         }
     }
 
-//    pullRequests.each {pr ->
-//        def change = new Change()
-//        change.author = new Link(pr.user.login, pr.user.html_url)
-//        change.change = new Link(pr.id, pr.html_url)
-//        change.description = pr.title
-//        def maxChange = ChangeLevel.PATCH
-//        pr.labels.each {label ->
-//            try {
-//                def labeledChangeLevel = ChangeLevel.valueOf(label.name.toUpperCase())
-//                if (labeledChangeLevel.getValue() > maxChange.getValue()) {
-//                    maxChange = labeledChangeLevel
-//                }
-//            } catch (Exception e) {
-//                echo "Unrecognized label ${label.name}"
-//            }
-//        }
-//        change.changeLevel = maxChange
-//        changes.add(change)
-//    }
-//    return changes
+    pullRequests.each {pr ->
+        Change change = new Change()
+        change.author = new Link(text: pr.user.login, href: pr.user.html_url)
+        change.change = new Link(text: pr.id, href: pr.html_url)
+        change.description = pr.title
+        def maxChange = ChangeLevel.PATCH
+        pr.labels.each {label ->
+            try {
+                def labeledChangeLevel = ChangeLevel.valueOf(label.name.toUpperCase())
+                if (labeledChangeLevel.getValue() > maxChange.getValue()) {
+                    maxChange = labeledChangeLevel
+                }
+            } catch (Exception e) {
+               echo "Unrecognized label ${label.name}"
+            }
+        }
+        change.changeLevel = maxChange
+        changes.add(change)
+    }
+    return changes
 }
