@@ -5,9 +5,4 @@ class Link implements Serializable {
 
     String text
     String href
-
-    Link(text, href) {
-        this.text = text
-        this.href = href
-    }
 }
