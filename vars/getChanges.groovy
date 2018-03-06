@@ -6,7 +6,7 @@ def call(
         githubApiRoot = "https://api.github.com"
 ) {
     def changes = []
-    def apiRoot = githubApiRoot.trim('/')
+    def apiRoot = githubApiRoot
     def responseBody = makeRequest(
             "${apiRoot}/repos/${owner}/${repo}/compare/${lastVersion.toString()}...${env.BRANCH_NAME ?: 'master'}".toString(),
             credentialsId
