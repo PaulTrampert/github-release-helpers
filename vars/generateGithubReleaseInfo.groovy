@@ -14,7 +14,7 @@ def call(
         echo e.message
     }
     echo lastVersion.toString()
-    //def changes = getChanges owner, repo, "${tagPrefix}${lastVersion.toString()}", credentialsId, githubApiRoot
+    def changes = getChanges owner, repo, "${tagPrefix}${lastVersion.toString()}", credentialsId, githubApiRoot
     //def releaseInfo = new ReleaseInfo()
     //releaseInfo.previousVersion = lastVersion
     //releaseInfo.changes = changes
