@@ -13,9 +13,10 @@ def call(
     } catch (e) {
         echo e.message
     }
-    def changes = getChanges owner, repo, "${tagPrefix}${lastVersion.toString()}", credentialsId, githubApiRoot
-    def releaseInfo = new ReleaseInfo()
-    releaseInfo.previousVersion = lastVersion
-    releaseInfo.changes = changes
-    return releaseInfo
+    echo lastVersion.toString()
+    //def changes = getChanges owner, repo, "${tagPrefix}${lastVersion.toString()}", credentialsId, githubApiRoot
+    //def releaseInfo = new ReleaseInfo()
+    //releaseInfo.previousVersion = lastVersion
+    //releaseInfo.changes = changes
+    //return releaseInfo
 }
