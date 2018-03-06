@@ -8,18 +8,18 @@ def call(
     def changes = []
     def apiRoot = githubApiRoot.trim('/')
     def responseBody = makeRequest(
-            url: "${apiRoot}/repos/${owner}/${repo}/compare/${lastVersion.toString()}...${env.BRANCH_NAME ?: 'master'}".toString(),
-            credentialsId: credentialsId
+            "${apiRoot}/repos/${owner}/${repo}/compare/${lastVersion.toString()}...${env.BRANCH_NAME ?: 'master'}".toString(),
+            credentialsId
     )
     def pullRequests = []
     def commitsInPrs = []
     responseBody.commits.each {
         def matcher = (it.message =~ ~/Merge pull request #(\d+)/)
         if (matcher.find()) {
-            def pr = makeRequest(url: "${apiRoot}/repos/${owner}/${repo}/pulls/${matcher.group(1)}", credentialsId: credentialsId)
-            def prCommits = makeRequest(url: pr.commits_url, credentialsId: credentialsId)
+            def pr = makeRequest("${apiRoot}/repos/${owner}/${repo}/pulls/${matcher.group(1)}", credentialsId)
+            def prCommits = makeRequest(pr.commits_url, credentialsId)
             pullRequests.add(pr)
-            commitsInPrs.addAll(items: prCommits)
+            commitsInPrs.addAll prCommits
             commitsInPrs.add(it)
         }
     }

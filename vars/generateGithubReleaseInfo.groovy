@@ -13,6 +13,6 @@ def call(
     } catch (e) {
         echo e.message
     }
-    def changes = getChanges owner: owner, repo: repo, lastVersion: "${tagPrefix}${lastVersion.toString()}", credentialsId: credentialsId, githubApiRoot: githubApiRoot
+    def changes = getChanges owner, repo, "${tagPrefix}${lastVersion.toString()}", credentialsId, githubApiRoot
 
 }
