@@ -10,10 +10,10 @@ pipeline {
             steps {
                 script {
                     def releaseInfo = generateGithubReleaseInfo(
-                            owner: 'PaulTrampert',
-                            repo: 'github-release-helpers',
-                            tagPrefix: 'v',
-                            credentialsId: 'github_token'
+                            'PaulTrampert',
+                            'github-release-helpers',
+                            'v',
+                            'github_token'
                     )
 
                     echo releaseInfo
