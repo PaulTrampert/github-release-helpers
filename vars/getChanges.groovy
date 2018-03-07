@@ -2,6 +2,7 @@ import com.ptrampert.github.Change
 import com.ptrampert.github.ChangeLevel
 import com.ptrampert.github.Link
 
+@NonCPS
 def call(
         owner,
         repo,
