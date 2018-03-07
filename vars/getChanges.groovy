@@ -1,6 +1,7 @@
 import com.ptrampert.github.Change
 import com.ptrampert.github.ChangeLevel
 import com.ptrampert.github.Link
+import java.util.ArrayList
 
 def call(
         owner,
@@ -9,7 +10,7 @@ def call(
         credentialsId = null,
         githubApiRoot = "https://api.github.com"
 ) {
-    def changes = []
+    ArrayList<Change> changes = new ArrayList<Change>()
     def apiRoot = githubApiRoot
     def responseBody = makeRequest(
             "${apiRoot}/repos/${owner}/${repo}/compare/${lastVersion.toString()}...${env.BRANCH_NAME ?: 'master'}".toString(),
@@ -19,14 +20,15 @@ def call(
     def pullRequests = []
     def commitsInPrs = []
     for (def commit : commits) {
-        echo commit.commit.message
         def matcher = (commit.commit.message =~ /Merge pull request #(\d+)/)
         if (matcher.find()) {
             def pr = makeRequest("${apiRoot}/repos/${owner}/${repo}/pulls/${matcher.group(1)}", credentialsId)
             def prCommits = makeRequest(pr.commits_url, credentialsId)
             pullRequests.add(pr)
-            commitsInPrs.addAll prCommits
-            commitsInPrs.add(commit)
+            for(def prCommit : prCommits) {
+                commitsInPrs.add(prCommit.sha)
+            }
+            commitsInPrs.add(commit.sha)
         }
     }
 
@@ -48,6 +50,17 @@ def call(
         }
         change.changeLevel = maxChange
         changes.add(change)
+    }
+
+    for (def commit : commits) {
+        if (!(commit.sha in commitsInPrs)) {
+            Change change = new Change()
+            change.author = new Link(text: commit.author.login, href: commit.author.html_url)
+            change.change = new Link(text: commit.sha.substring(0, 5), href: commit.html_url)
+            change.description = commit.commit.message
+            change.changeLevel = ChangeLevel.PATCH
+            changes.add(change)
+        }
     }
     return changes
 }

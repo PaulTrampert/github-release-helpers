@@ -5,4 +5,8 @@ class Link implements Serializable {
 
     String text
     String href
+
+    String getMarkdown() {
+        return "[${text}](${href})"
+    }
 }

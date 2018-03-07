@@ -7,4 +7,8 @@ class Change implements Serializable {
     Link change
     String description
     ChangeLevel changeLevel
+
+    String getMarkdown() {
+        return "* **${changeLevel.toString()}** ${change.getMarkdown()} - ${author.getMarkdown()} - ${description}"
+    }
 }

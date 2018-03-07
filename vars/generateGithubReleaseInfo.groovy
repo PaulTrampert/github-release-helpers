@@ -1,4 +1,5 @@
 import com.ptrampert.github.SemVer
+import com.ptrampert.github.ReleaseInfo
 
 def call(
     owner,
@@ -14,5 +15,7 @@ def call(
         echo e.message
     }
     echo lastVersion.toString()
-    def changes = getChanges owner, repo, "${tagPrefix}${lastVersion.toString()}", credentialsId, githubApiRoot
+    ArrayList<Change> changes = getChanges owner, repo, "${tagPrefix}${lastVersion.toString()}", credentialsId, githubApiRoot
+    ReleaseInfo release = new ReleaseInfo(previousVersion: lastVersion, changelog: changes)
+    return release
 }
