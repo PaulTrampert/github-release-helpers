@@ -1,7 +1,6 @@
 import com.ptrampert.github.Change
 import com.ptrampert.github.ChangeLevel
 import com.ptrampert.github.Link
-import java.util.ArrayList
 
 def call(
         owner,
