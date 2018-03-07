@@ -16,34 +16,34 @@ def call(
     def commits = responseBody.commits
     def pullRequests = []
     def commitsInPrs = []
-    commits.each {
-        echo it.commit.message
-        def matcher = (it.commit.message =~ /Merge pull request #(\d+)/)
+    for (def commit : commits) {
+        echo commit.commit.message
+        def matcher = (commit.commit.message =~ /Merge pull request #(\d+)/)
         if (matcher.find()) {
             def pr = makeRequest("${apiRoot}/repos/${owner}/${repo}/pulls/${matcher.group(1)}", credentialsId)
             def prCommits = makeRequest(pr.commits_url, credentialsId)
             pullRequests.add(pr)
             commitsInPrs.addAll prCommits
-            commitsInPrs.add(it)
+            commitsInPrs.add(commit)
         }
     }
 
-    pullRequests.each {
+    for (def pr : pullRequests) {
         Change change = new Change()
-        change.author = new Link(text: it.user.login, href: it.user.html_url)
-        change.change = new Link(text: it.id, href: it.html_url)
-        change.description = it.title
+        change.author = new Link(text: pr.user.login, href: pr.user.html_url)
+        change.change = new Link(text: pr.id, href: pr.html_url)
+        change.description = pr.title
         ChangeLevel maxChange = ChangeLevel.PATCH
-//        pr.labels.each {
-//            try {
-//                ChangeLevel labeledChangeLevel = ChangeLevel.valueOf(it.name.toUpperCase())
-//                if (labeledChangeLevel.getValue() > maxChange.getValue()) {
-//                    maxChange = labeledChangeLevel
-//                }
-//            } catch (Exception e) {
-//               echo "Unrecognized label ${label.name}"
-//            }
-//        }
+        for (def label : pr.labels) {
+           try {
+                ChangeLevel labeledChangeLevel = ChangeLevel.valueOf(it.name.toUpperCase())
+                if (labeledChangeLevel.getValue() > maxChange.getValue()) {
+                    maxChange = labeledChangeLevel
+                }
+            } catch (Exception e) {
+               echo "Unrecognized label ${label.name}"
+            }
+        }
         change.changeLevel = maxChange
         changes.add(change)
     }
