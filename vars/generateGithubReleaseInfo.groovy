@@ -1,5 +1,6 @@
 import com.ptrampert.github.SemVer
 import com.ptrampert.github.ReleaseInfo
+import com.ptrampert.github.Change
 
 def call(
     owner,
