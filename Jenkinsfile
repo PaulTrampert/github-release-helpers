@@ -1,5 +1,7 @@
+def releaseInfo
+
 pipeline {
-    agent any;
+    agent any
 
     options {
         buildDiscarder(logRotator(numToKeepStr: '5'))
@@ -9,13 +11,14 @@ pipeline {
         stage('Generate Release Info Test') {
             steps {
                 script {
-                    def releaseInfo = generateGithubReleaseInfo(
+                    releaseInfo = generateGithubReleaseInfo(
                             'PaulTrampert',
                             'github-release-helpers',
                             'v',
                             'github_token'
                     )
 
+                    echo releaseInfo.nextVersion().toString()
                     echo releaseInfo.changelogToMarkdown()
                 }
             }
