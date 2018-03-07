@@ -29,13 +29,13 @@ def call(
         }
     }
 
-    pullRequests.each {pr ->
+    pullRequests.each {
         Change change = new Change()
-        change.author = new Link(text: pr.user.login, href: pr.user.html_url)
-        change.change = new Link(text: pr.id, href: pr.html_url)
-        change.description = pr.title
+        change.author = new Link(text: it.user.login, href: it.user.html_url)
+        change.change = new Link(text: it.id, href: it.html_url)
+        change.description = it.title
         ChangeLevel maxChange = ChangeLevel.PATCH
-        pr.labels.each {label ->
+        pr.labels.each {
             try {
                 ChangeLevel labeledChangeLevel = ChangeLevel.valueOf(label.name.toUpperCase())
                 if (labeledChangeLevel.getValue() > maxChange.getValue()) {
