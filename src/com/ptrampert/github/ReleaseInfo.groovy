@@ -35,13 +35,13 @@ class ReleaseInfo implements Serializable {
         def markdown = ""
         markdown += "## Changelog\r\n"
         for (def change : majorChanges) {
-            markdown += "${change.toMarkdown()}"
+            markdown += "${change.getMarkdown()}"
         }
         for (def change : minorChanges) {
-            markdown += "${change.toMarkdown()}"
+            markdown += "${change.getMarkdown()}"
         }
         for (def change : patches) {
-            markdown += "${change.toMarkdown()}"
+            markdown += "${change.getMarkdown()}"
         }
         return markdown
     }
