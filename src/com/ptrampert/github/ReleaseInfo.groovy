@@ -20,7 +20,7 @@ class ReleaseInfo implements Serializable {
         def minorChanges = []
         def patches = []
 
-        for (def change : changeLog) {
+        for (def change : changelog) {
             if (change.changeLevel == ChangeLevel.MAJOR) {
                 majorChanges.add(change)
             }
