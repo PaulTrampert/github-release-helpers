@@ -4,7 +4,7 @@ class ReleaseInfo implements Serializable {
     private static final long serialVersionUID = 1234L
 
     SemVer previousVersion
-    List<Change> changelog
+    ArrayList<Change> changelog
 
     SemVer nextVersion() {
         ChangeLevel maxChange = changelog.max {

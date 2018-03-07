@@ -6,7 +6,7 @@ def call(
         credentialsId = null,
         githubApiRoot = "https://api.github.com"
 ) {
-    def changes = []
+    ArrayList<Change> changes = new ArrayList<Change>()
     def apiRoot = githubApiRoot
     def responseBody = makeRequest(
             "${apiRoot}/repos/${owner}/${repo}/compare/${lastVersion.toString()}...${env.BRANCH_NAME ?: 'master'}".toString(),
@@ -27,7 +27,7 @@ def call(
         }
     }
 
-/*    for (def pr : pullRequests) {
+    for (def pr : pullRequests) {
         Change change = new Change()
         change.author = new Link(text: pr.user.login, href: pr.user.html_url)
         change.change = new Link(text: pr.id, href: pr.html_url)
@@ -45,6 +45,6 @@ def call(
         }
         change.changeLevel = maxChange
         changes.add(change)
-    }*/
-    //return changes
+    }
+    return changes
 }
