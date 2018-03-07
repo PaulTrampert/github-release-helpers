@@ -36,7 +36,7 @@ def call(
         ChangeLevel maxChange = ChangeLevel.PATCH
         for (def label : pr.labels) {
            try {
-                ChangeLevel labeledChangeLevel = ChangeLevel.valueOf(it.name.toUpperCase())
+                ChangeLevel labeledChangeLevel = ChangeLevel.valueOf(label.name.toUpperCase())
                 if (labeledChangeLevel.getValue() > maxChange.getValue()) {
                     maxChange = labeledChangeLevel
                 }
