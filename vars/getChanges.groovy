@@ -1,6 +1,5 @@
 import com.ptrampert.github.ChangeLevel
 
-@NonCPS
 def call(
         owner,
         repo,
