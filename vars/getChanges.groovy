@@ -35,16 +35,16 @@ def call(
         change.change = new Link(text: it.id, href: it.html_url)
         change.description = it.title
         ChangeLevel maxChange = ChangeLevel.PATCH
-        pr.labels.each {
-            try {
-                ChangeLevel labeledChangeLevel = ChangeLevel.valueOf(it.name.toUpperCase())
-                if (labeledChangeLevel.getValue() > maxChange.getValue()) {
-                    maxChange = labeledChangeLevel
-                }
-            } catch (Exception e) {
-               echo "Unrecognized label ${label.name}"
-            }
-        }
+//        pr.labels.each {
+//            try {
+//                ChangeLevel labeledChangeLevel = ChangeLevel.valueOf(it.name.toUpperCase())
+//                if (labeledChangeLevel.getValue() > maxChange.getValue()) {
+//                    maxChange = labeledChangeLevel
+//                }
+//            } catch (Exception e) {
+//               echo "Unrecognized label ${label.name}"
+//            }
+//        }
         change.changeLevel = maxChange
         changes.add(change)
     }
