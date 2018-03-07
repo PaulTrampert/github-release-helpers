@@ -1,6 +1,6 @@
 package com.ptrampert.github
 
-enum ChangeLevel {
+enum ChangeLevel implements  Serializable{
     PATCH(0),
     MINOR(1),
     MAJOR(2)
