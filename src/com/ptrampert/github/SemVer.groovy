@@ -24,7 +24,7 @@ class SemVer implements Serializable {
     }
 
     SemVer clone() {
-        return parse(this.toString())
+        return new SemVer(major: this.major, minor: this.minor, patch: this.patch)
     }
 
     void increment(ChangeLevel level) {
