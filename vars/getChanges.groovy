@@ -18,7 +18,7 @@ def call(
     def commitsInPrs = []
     commits.each {
         echo it.commit.message
-        def matcher = (it.commit.message =~ ~/Merge pull request #(\d+)/)
+        def matcher = (it.commit.message =~ /Merge pull request #(\d+)/)
         if (matcher.find()) {
             def pr = makeRequest("${apiRoot}/repos/${owner}/${repo}/pulls/${matcher.group(1)}", credentialsId)
             def prCommits = makeRequest(pr.commits_url, credentialsId)
@@ -33,10 +33,10 @@ def call(
         change.author = new Link(text: pr.user.login, href: pr.user.html_url)
         change.change = new Link(text: pr.id, href: pr.html_url)
         change.description = pr.title
-        def maxChange = ChangeLevel.PATCH
+        ChangeLevel maxChange = ChangeLevel.PATCH
         pr.labels.each {label ->
             try {
-                def labeledChangeLevel = ChangeLevel.valueOf(label.name.toUpperCase())
+                ChangeLevel labeledChangeLevel = ChangeLevel.valueOf(label.name.toUpperCase())
                 if (labeledChangeLevel.getValue() > maxChange.getValue()) {
                     maxChange = labeledChangeLevel
                 }
