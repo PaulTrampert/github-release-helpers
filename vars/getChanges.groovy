@@ -1,3 +1,5 @@
+import com.ptrampert.github.Change
+import com.ptrampert.github.ChangeLevel
 
 def call(
         owner,
@@ -6,7 +8,7 @@ def call(
         credentialsId = null,
         githubApiRoot = "https://api.github.com"
 ) {
-    ArrayList<Change> changes = new ArrayList<Change>()
+    def changes = []
     def apiRoot = githubApiRoot
     def responseBody = makeRequest(
             "${apiRoot}/repos/${owner}/${repo}/compare/${lastVersion.toString()}...${env.BRANCH_NAME ?: 'master'}".toString(),
