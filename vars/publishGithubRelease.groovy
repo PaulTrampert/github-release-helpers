@@ -1,4 +1,5 @@
 import groovy.json.JsonOutput
+import com.ptrampert.github.ReleaseInfo
 
 def call(
         owner,
