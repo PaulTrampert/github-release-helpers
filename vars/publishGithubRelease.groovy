@@ -24,12 +24,14 @@ def call(
             body: releaseInfo.changelogToMarkdown()
     ])
 
+    echo releaseBody
+
     def response = httpRequest(
             url: "${githubApiRoot}/repos/${owner}/${repo}/releases".toString(),
             authentication: credentialsId,
             httpMode: 'POST',
             contentType: 'APPLICATION_JSON',
-            body: releaseBody,
+            requestBody: releaseBody,
     )
     if (response.status > 399) {
         throw new Exception("Failed to create github release")
