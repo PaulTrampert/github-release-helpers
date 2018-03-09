@@ -16,6 +16,7 @@ pipeline {
                             'github_token'
                     )
 
+                    echo releaseInfo.nextVersion().toString()
                     echo releaseInfo.changelogToMarkdown()
                 }
             }
