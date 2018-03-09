@@ -8,7 +8,7 @@ class ReleaseInfo implements Serializable {
 
     SemVer nextVersion() {
         ChangeLevel maxChange = changelog.max {
-            it.changeLevel
+            it.changeLevel.getValue()
         }.getChangeLevel()
         SemVer next = previousVersion.clone()
         next.increment(maxChange)
