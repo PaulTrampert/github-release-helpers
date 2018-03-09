@@ -10,7 +10,7 @@ class SemVer implements Serializable {
     static SemVer parse(str) {
         def matcher = (str =~ /(\d+)\.(\d+)\.(\d+)/)
         def result = new SemVer()
-        if (matcher.matches()) {
+        if (!matcher.find()) {
             throw new Exception("Cannot parse ${str} as SemVer")
         }
         result.major = Integer.parseInt(matcher.group(1))
