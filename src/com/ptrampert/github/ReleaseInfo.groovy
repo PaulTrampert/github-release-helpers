@@ -7,6 +7,9 @@ class ReleaseInfo implements Serializable {
     ArrayList<Change> changelog
 
     SemVer nextVersion() {
+        if (changelog == null || changelog.size() == 0) {
+            return previousVersion
+        }
         ChangeLevel maxChange = changelog.max {
             it.changeLevel.getValue()
         }.getChangeLevel()
