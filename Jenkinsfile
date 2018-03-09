@@ -1,3 +1,5 @@
+def releaseInfo
+
 pipeline {
     agent any;
 
@@ -9,7 +11,7 @@ pipeline {
         stage('Generate Release Info Test') {
             steps {
                 script {
-                    def releaseInfo = generateGithubReleaseInfo(
+                    releaseInfo = generateGithubReleaseInfo(
                             'PaulTrampert',
                             'github-release-helpers',
                             'v',
