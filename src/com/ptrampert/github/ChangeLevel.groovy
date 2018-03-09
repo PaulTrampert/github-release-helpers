@@ -9,9 +9,5 @@ enum ChangeLevel {
         this.value = value
     }
 
-    private final int value
-
-    int getValue() {
-        return this.value
-    }
+    final int value
 }
