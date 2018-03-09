@@ -23,5 +23,19 @@ pipeline {
                 }
             }
         }
+
+        stage('Publish Release Test') {
+            steps {
+                script {
+                    publishGithubRelease(
+                            'PaulTrampert',
+                            'github-release-helpers',
+                            releaseInfo,
+                            'v',
+                            'github_token'
+                    )
+                }
+            }
+        }
     }
 }
