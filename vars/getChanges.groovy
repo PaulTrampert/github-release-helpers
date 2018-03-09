@@ -11,8 +11,15 @@ def call(
 ) {
     ArrayList<Change> changes = new ArrayList<Change>()
     def apiRoot = githubApiRoot
+    def gitCommit
+    if (isUnix()) {
+        gitCommit = sh returnStdout: true, script: 'git rev-parse HEAD'
+    }
+    else {
+        gitCommit = bat returnStdout: true, script: 'git rev-parse HEAD'
+    }
     def responseBody = makeRequest(
-            "${apiRoot}/repos/${owner}/${repo}/compare/${lastVersion.toString()}...${env.BRANCH_NAME ?: 'master'}".toString(),
+            "${apiRoot}/repos/${owner}/${repo}/compare/${lastVersion.toString()}...${gitCommit}".toString(),
             credentialsId
     )
     def commits = responseBody.commits
