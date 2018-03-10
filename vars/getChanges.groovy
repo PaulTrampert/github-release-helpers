@@ -26,8 +26,8 @@ def call(
     def pullRequests = []
     def commitsInPrs = []
     for (def commit : commits) {
-        def matcher = (commit.commit.message =~ /Merge pull request #(\d+)/)
-        if (matcher.find()) {
+        def prId = getPullRequestId(commit.commit.message)
+        if (prId) {
             def pr = makeRequest("${apiRoot}/repos/${owner}/${repo}/pulls/${matcher.group(1)}", credentialsId)
             def prCommits = makeRequest(pr.commits_url, credentialsId)
             pullRequests.add(pr)
