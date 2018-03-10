@@ -41,7 +41,7 @@ def call(
     for (def pr : pullRequests) {
         Change change = new Change()
         change.author = new Link(text: pr.user.login, href: pr.user.html_url)
-        change.change = new Link(text: pr.id, href: pr.html_url)
+        change.change = new Link(text: pr.number, href: pr.html_url)
         change.description = pr.title
         ChangeLevel maxChange = ChangeLevel.PATCH
         for (def label : pr.labels) {
