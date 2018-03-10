@@ -28,7 +28,7 @@ def call(
     for (def commit : commits) {
         def prId = getPullRequestId(commit.commit.message)
         if (prId) {
-            def pr = makeRequest("${apiRoot}/repos/${owner}/${repo}/pulls/${matcher.group(1)}", credentialsId)
+            def pr = makeRequest("${apiRoot}/repos/${owner}/${repo}/pulls/${prId}", credentialsId)
             def prCommits = makeRequest(pr.commits_url, credentialsId)
             pullRequests.add(pr)
             for(def prCommit : prCommits) {
