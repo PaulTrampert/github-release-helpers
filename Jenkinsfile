@@ -1,4 +1,4 @@
-@Library("github-release-helpers@${env.BRANCH_NAME}")
+library("github-release-helpers@${env.BRANCH_NAME}")
 
 def releaseInfo
 def branch = null
