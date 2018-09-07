@@ -11,6 +11,16 @@ def call(
     branch = null,
     buildNumber = null
 ) {
+
+    echo "owner: ${owner}"
+    echo "repo: ${repo}"
+    echo "tagPrefix: ${tagPrefix}"
+    echo "credentialsId: ${credentialsId}"
+    echo "githubApiRoot: ${githubApiRoot}"
+    echo "branch: ${branch}"
+    echo "buildNumber: ${buildNumber}"
+
+
     def prerelease = null
     if (branch != null) {
         prerelease = "${branch.take(7)}.${buildNumber.toString().take(3)}"
