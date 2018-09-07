@@ -5,6 +5,7 @@ class ReleaseInfo implements Serializable {
 
     SemVer previousVersion
     ArrayList<Change> changelog
+    String prerelease
 
     SemVer nextVersion() {
         if (changelog == null || changelog.size() == 0) {
@@ -15,6 +16,7 @@ class ReleaseInfo implements Serializable {
         }.getChangeLevel()
         SemVer next = previousVersion.clone()
         next.increment(maxChange)
+        next.prerelease = prerelease
         return next
     }
 

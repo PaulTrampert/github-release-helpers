@@ -1,4 +1,5 @@
 def releaseInfo
+def branch = null
 
 pipeline {
     agent any;
@@ -8,14 +9,29 @@ pipeline {
     }
 
     stages {
+        stage('Set branch') {
+            when {
+				expression {env.BRANCH_NAME != 'master'}
+			}
+
+            steps {
+                script {
+                    branch = env.BRANCH_NAME
+                }
+            }
+        }
+
         stage('Generate Release Info Test') {
             steps {
                 script {
                     releaseInfo = generateGithubReleaseInfo(
-                            'PaulTrampert',
-                            'github-release-helpers',
-                            'v',
-                            'github_token'
+                        'PaulTrampert',
+                        'github-release-helpers',
+                        'v',
+                        'Github User/Pass',
+                        "https://api.github.com",
+                        branch,
+                        env.BUILD_NUMBER
                     )
 
                     echo releaseInfo.nextVersion().toString()
@@ -32,7 +48,7 @@ pipeline {
                             'github-release-helpers',
                             releaseInfo,
                             'v',
-                            'github_token'
+                            'Github User/Pass'
                     )
                 }
             }
