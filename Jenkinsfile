@@ -1,5 +1,3 @@
-library("github-release-helpers@${env.BRANCH_NAME}")
-
 def releaseInfo
 def branch = null
 
@@ -31,9 +29,9 @@ pipeline {
                         'github-release-helpers',
                         'v',
                         'Github User/Pass',
-
-                        branch: branch,
-                        buildNumber: env.BUILD_NUMBER
+                        "https://api.github.com",
+                        branch,
+                        env.BUILD_NUMBER
                     )
 
                     echo releaseInfo.nextVersion().toString()
