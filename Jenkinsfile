@@ -15,7 +15,7 @@ pipeline {
                             'PaulTrampert',
                             'github-release-helpers',
                             'v',
-                            'github_token'
+                            'Github User/Pass'
                     )
 
                     echo releaseInfo.nextVersion().toString()
