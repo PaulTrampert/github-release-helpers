@@ -32,7 +32,7 @@ pipeline {
                             'github-release-helpers',
                             releaseInfo,
                             'v',
-                            'github_token'
+                            'Github User/Pass'
                     )
                 }
             }
