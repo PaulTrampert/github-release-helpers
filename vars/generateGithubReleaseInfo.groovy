@@ -23,7 +23,7 @@ def call(
 
     def prerelease = null
     if (branch != null) {
-        prerelease = "${branch.take(7)}.${buildNumber.toString().take(3)}"
+        prerelease = "${branch}.${buildNumber.toString().take(3)}"
     }
     def lastVersion = new SemVer()
     try {
