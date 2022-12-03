@@ -23,6 +23,9 @@ def call(
 
     def prerelease = null
     if (branch != null) {
+        if (branch.indexOf('/') > -1) {
+            branch = branch.substring(branch.lastIndexOf('/') + 1, branch.length())
+        }
         prerelease = "${branch}.${buildNumber.toString().take(3)}"
     }
     def lastVersion = new SemVer()
